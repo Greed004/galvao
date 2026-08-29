@@ -1,0 +1,101 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-solar: var(--solar);
+  --color-solar-foreground: var(--solar-foreground);
+  --color-whatsapp: var(--whatsapp);
+  --color-whatsapp-foreground: var(--whatsapp-foreground);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+:root {
+  color-scheme: light;
+
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.24 0.02 255);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.24 0.02 255);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.24 0.02 255);
+
+  /* Institutional blue */
+  --primary: oklch(0.52 0.16 258);
+  --primary-foreground: oklch(0.99 0 0);
+
+  --secondary: oklch(0.97 0.01 255);
+  --secondary-foreground: oklch(0.3 0.03 258);
+
+  --muted: oklch(0.975 0.006 255);
+  --muted-foreground: oklch(0.52 0.02 258);
+
+  --accent: oklch(0.96 0.02 255);
+  --accent-foreground: oklch(0.3 0.05 258);
+
+  --destructive: oklch(0.58 0.22 27);
+
+  --border: oklch(0.92 0.008 255);
+  --input: oklch(0.92 0.008 255);
+  --ring: oklch(0.52 0.16 258);
+
+  /* Solar / energy accent (amber) */
+  --solar: oklch(0.78 0.16 68);
+  --solar-foreground: oklch(0.28 0.05 68);
+
+  /* WhatsApp brand green */
+  --whatsapp: oklch(0.63 0.16 155);
+  --whatsapp-foreground: oklch(0.99 0 0);
+
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  /* Offset anchor targets so fixed header never hides section titles */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+  }
+}
