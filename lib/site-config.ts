@@ -1,20 +1,20 @@
 // Dados oficiais do profissional.
-// Substitua os placeholders pelas informações reais do documento "Projeto Pro Galvão".
+// Informações da Galvão Elétrica e Manutenção Industrial.
 
 export const siteConfig = {
-  name: 'Projeto Pro Galvão',
+  name: 'Galvão Elétrica e Manutenção Industrial',
   role: 'Soluções Elétricas e de Infraestrutura',
 
-  // Contato — [INSERIR INFORMAÇÃO OFICIAL]
-  phoneDisplay: '[INSERIR TELEFONE OFICIAL]',
-  whatsappDisplay: '[INSERIR WHATSAPP OFICIAL]',
-  email: '[INSERIR E-MAIL OFICIAL]',
-  baseCity: '[INSERIR CIDADE BASE]',
-  cnpj: '[INSERIR CNPJ OFICIAL]',
+  // Contato
+  phoneDisplay: '(68) 99944-9737',
+  whatsappDisplay: '(68) 99944-9737',
+  email: 'contato@galvaoeletrica.com.br',
+  baseCity: 'Rio Branco - AC',
+  cnpj: 'Sob consulta',
 
   // Número usado no link do WhatsApp (formato internacional, somente dígitos).
   // Ex.: 55 + DDD + número. Substitua pelo número oficial.
-  whatsappNumber: '5568000000000',
+  whatsappNumber: '5568999449737',
 
   serviceArea: 'Todo o estado do Acre',
 } as const

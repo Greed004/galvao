@@ -1,0 +1,6 @@
+{
+  "name": "Galvão Elétrica e Manutenção Industrial",
+  "description": "Soluções elétricas e de infraestrutura no estado do Acre com solicitação de orçamento direto pelo WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -44,10 +44,7 @@ export function AboutSection() {
             <p>
               Atuo com serviços elétricos, manutenção, geradores, sistemas de
               combate a incêndio e energia solar em todo o estado do Acre, com
-              avaliação individual de cada projeto.{' '}
-              <span className="text-muted-foreground/80">
-                [INSERIR INFORMAÇÕES OFICIAIS DO DOCUMENTO &quot;PROJETO PRO GALVÃO&quot;]
-              </span>
+              avaliação individual de cada projeto.
             </p>
           </div>
 

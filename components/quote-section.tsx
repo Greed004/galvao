@@ -23,6 +23,10 @@ export function QuoteSection() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
+
+    // Mantém a validação nativa sem alterar a aparência do formulário.
+    if (!form.reportValidity()) return
+
     const data = new FormData(form)
     const nome = String(data.get('nome') ?? '')
     const telefone = String(data.get('telefone') ?? '')
@@ -37,7 +41,7 @@ export function QuoteSection() {
       `Telefone/WhatsApp: ${telefone}`,
       `Cidade: ${cidade}`,
       `Serviço desejado: ${servico}`,
-      descricao ? `Descrição: ${descricao}` : '',
+      `Descrição: ${descricao || 'Não informada'}`,
     ]
       .filter(Boolean)
       .join('\n')
@@ -101,7 +105,7 @@ export function QuoteSection() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="grid gap-5" noValidate>
+                <form onSubmit={handleSubmit} className="grid gap-5">
                   <div className="grid gap-5 sm:grid-cols-2">
                     <div className="flex flex-col gap-1.5">
                       <label htmlFor="nome" className="text-sm font-medium text-foreground">

@@ -16,7 +16,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Projeto Pro Galvão | Soluções Elétricas e Manutenção no Acre',
+  title: 'Galvão Elétrica e Manutenção Industrial | Soluções Elétricas e Manutenção no Acre',
   description:
     'Serviços elétricos, manutenção, geradores, sistemas de combate a incêndio e energia solar, com atendimento personalizado em todo o estado do Acre.',
   generator: 'v0.app',
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     'sistemas de combate a incêndio no Acre',
   ],
   openGraph: {
-    title: 'Projeto Pro Galvão | Soluções Elétricas e Manutenção no Acre',
+    title: 'Galvão Elétrica e Manutenção Industrial | Soluções Elétricas e Manutenção no Acre',
     description:
       'Serviços elétricos, manutenção, geradores, sistemas de combate a incêndio e energia solar, com atendimento personalizado em todo o estado do Acre.',
     type: 'website',
