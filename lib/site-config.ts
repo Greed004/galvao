@@ -41,9 +41,8 @@ export const serviceOptions = [
   'Instalação e manutenção industrial',
   'Manutenção de equipamentos',
   'Manutenção de geradores',
-  'Sistemas de combate a incêndio',
-  'Sistema fotovoltaico',
-  'Outro',
+  'Instalação e manutenção de sistemas de combate a incêndio',
+  'Sistema fotovoltaico — Energia Solar',
 ] as const
 
 export const acreCities = [

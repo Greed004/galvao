@@ -19,34 +19,50 @@ const fieldClass =
 
 export function QuoteSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState('')
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    // Regra crítica: não recarregar a página.
     event.preventDefault()
+
     const form = event.currentTarget
-
-    // Mantém a validação nativa sem alterar a aparência do formulário.
-    if (!form.reportValidity()) return
-
     const data = new FormData(form)
-    const nome = String(data.get('nome') ?? '')
-    const telefone = String(data.get('telefone') ?? '')
-    const cidade = String(data.get('cidade') ?? '')
-    const servico = String(data.get('servico') ?? '')
-    const descricao = String(data.get('descricao') ?? '')
 
-    const message = [
-      'Olá! Gostaria de solicitar um orçamento.',
-      '',
-      `Nome: ${nome}`,
-      `Telefone/WhatsApp: ${telefone}`,
-      `Cidade: ${cidade}`,
-      `Serviço desejado: ${servico}`,
-      `Descrição: ${descricao || 'Não informada'}`,
-    ]
-      .filter(Boolean)
-      .join('\n')
+    // Captura dos dados exatamente como informados pelo usuário.
+    const nome = String(data.get('nome') ?? '').trim()
+    const servico = String(data.get('servico') ?? '').trim()
+    const detalhes = String(data.get('detalhes') ?? '').trim()
 
-    window.open(buildWhatsappLink(message), '_blank', 'noopener,noreferrer')
+    // Validação simples dos campos obrigatórios.
+    if (!nome) {
+      setError('Por favor, informe o seu nome.')
+      return
+    }
+    if (!servico) {
+      setError('Por favor, selecione o serviço desejado.')
+      return
+    }
+    if (!detalhes) {
+      setError('Por favor, descreva o que você precisa.')
+      return
+    }
+
+    setError('')
+
+    // Mensagem organizada e amigável para o WhatsApp.
+    const mensagem = `Olá! Meu nome é ${nome}.
+
+Gostaria de solicitar um orçamento para o serviço de ${servico}.
+
+Detalhes:
+${detalhes}`
+
+    // Codifica a mensagem e abre o WhatsApp em uma nova aba.
+    window.open(
+      buildWhatsappLink(mensagem),
+      '_blank',
+      'noopener,noreferrer',
+    )
     setSubmitted(true)
   }
 
@@ -61,16 +77,19 @@ export function QuoteSection() {
               Solicite seu orçamento
             </span>
             <h2 className="text-balance font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Vamos entender o que você precisa
+              Solicitar Orçamento
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-muted-foreground">
-              Explique o que você precisa e entraremos em contato para entender
-              melhor o serviço e avaliar a melhor solução.
+              Conte o que você precisa e envie sua solicitação diretamente pelo
+              WhatsApp.
             </p>
 
             <ul className="mt-8 space-y-4">
               {perks.map((perk) => (
-                <li key={perk.text} className="flex items-center gap-3 text-sm font-medium text-foreground">
+                <li
+                  key={perk.text}
+                  className="flex items-center gap-3 text-sm font-medium text-foreground"
+                >
                   <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <perk.icon className="size-4" aria-hidden="true" />
                   </span>
@@ -105,53 +124,37 @@ export function QuoteSection() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="grid gap-5">
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="nome" className="text-sm font-medium text-foreground">
-                        Nome
-                      </label>
-                      <input
-                        id="nome"
-                        name="nome"
-                        type="text"
-                        required
-                        placeholder="Seu nome"
-                        className={fieldClass}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="telefone" className="text-sm font-medium text-foreground">
-                        Telefone / WhatsApp
-                      </label>
-                      <input
-                        id="telefone"
-                        name="telefone"
-                        type="tel"
-                        required
-                        placeholder="(00) 00000-0000"
-                        className={fieldClass}
-                      />
-                    </div>
-                  </div>
-
+                <form
+                  id="orcamentoForm"
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className="grid gap-5"
+                >
+                  {/* Nome */}
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="cidade" className="text-sm font-medium text-foreground">
-                      Cidade
+                    <label
+                      htmlFor="nome"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Nome
                     </label>
                     <input
-                      id="cidade"
-                      name="cidade"
+                      id="nome"
+                      name="nome"
                       type="text"
                       required
-                      placeholder="Informe sua cidade"
+                      placeholder="Digite seu nome"
                       className={fieldClass}
                     />
                   </div>
 
+                  {/* Serviço desejado */}
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="servico" className="text-sm font-medium text-foreground">
-                      Serviço desejado
+                    <label
+                      htmlFor="servico"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Serviço Desejado
                     </label>
                     <select
                       id="servico"
@@ -161,7 +164,7 @@ export function QuoteSection() {
                       className={fieldClass}
                     >
                       <option value="" disabled>
-                        Selecione um serviço
+                        Selecione o serviço
                       </option>
                       {serviceOptions.map((option) => (
                         <option key={option} value={option}>
@@ -171,19 +174,34 @@ export function QuoteSection() {
                     </select>
                   </div>
 
+                  {/* Detalhes */}
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="descricao" className="text-sm font-medium text-foreground">
-                      Descrição
+                    <label
+                      htmlFor="detalhes"
+                      className="text-sm font-medium text-foreground"
+                    >
+                      Detalhes
                     </label>
                     <textarea
-                      id="descricao"
-                      name="descricao"
+                      id="detalhes"
+                      name="detalhes"
                       rows={4}
-                      placeholder="Conte brevemente o que você precisa."
+                      required
+                      placeholder="Descreva brevemente o que você precisa."
                       className={`${fieldClass} resize-none`}
                     />
                   </div>
 
+                  {error ? (
+                    <p
+                      role="alert"
+                      className="rounded-lg bg-destructive/10 px-3.5 py-2.5 text-sm font-medium text-destructive"
+                    >
+                      {error}
+                    </p>
+                  ) : null}
+
+                  {/* Botão */}
                   <button
                     type="submit"
                     className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-primary px-6 font-heading text-sm font-semibold text-primary-foreground shadow-sm shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-md active:translate-y-px"
